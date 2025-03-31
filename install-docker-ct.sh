@@ -44,7 +44,9 @@ function int_dialog() {
 }
 
 function progressbox() {
-    int_dialog --progressbox "$1" 20 80 $@
+    local title="$1"
+    shift
+    int_dialog --progressbox "$title" 20 80 $@
 }
 
 {
