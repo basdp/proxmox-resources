@@ -50,15 +50,6 @@ function progressbox() {
 }
 
 {
-    while true
-    do date 
-    sleep 1 
-    sleep 1
-    done 
-    ls
-} | progressbox "hopi" 
-
-{
     apt-get update
     apt-get upgrade -y
 } | progressbox "Updating system..."
