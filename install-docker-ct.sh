@@ -48,13 +48,13 @@ chmod a+r /etc/apt/keyrings/docker.asc
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
   $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "🎈 Provisioning root account for first use..."
-sudo passwd -d root   # remove password
-sudo chage -d 0 root  # force password change on first login
+passwd -d root   # remove password
+chage -d 0 root  # force password change on first login
 rm -f /etc/ssh/ssh_host_*_key
 rm -f /etc/ssh/ssh_host_*_key.pub
 
