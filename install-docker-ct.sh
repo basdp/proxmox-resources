@@ -42,11 +42,6 @@ function progressbox() {
     eval int_dialog --progressbox "$1" 20 80 
 }
 
-function progressbox() {
-    # show a dialog box with the program name and version
-    dialog --progressbox "$1" 20 80 < 
-}
-
 {
     apt-get update
     apt-get upgrade -y
