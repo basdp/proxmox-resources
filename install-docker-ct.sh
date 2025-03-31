@@ -74,10 +74,20 @@ function progressbox() {
 } | progressbox "Installing Docker..."
 
 {
+    apt-get install -y unattended-upgrades
+} | progressbox "Enabling unattended automatic updates..."
+sudo dpkg-reconfigure --priority=low unattended-upgrades
+
+{
     passwd -d root   # remove password
     chage -d 0 root  # force password change on first login
     rm -f /etc/ssh/ssh_host_*_key
     rm -f /etc/ssh/ssh_host_*_key.pub
+    apt-get autoremove -y
+    apt-get clean -y
+    apt-get autoclean -y
+    apt-get install localepurge
+
 } | progressbox "Provisioning root account for first use..."
 
 # update issue
