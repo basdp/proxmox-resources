@@ -36,7 +36,7 @@ echo "🎈 Updating system..."
 apt-get update && apt-get upgrade -y
 
 echo "🎈 Installing dependencies..."
-apt-get install -y whiptail ca-certificates curl jq
+apt-get install -y whiptail ca-certificates curl jq dialog
 # disable ssh server, it's not needed
 apt-get remove -y openssh-server
 
