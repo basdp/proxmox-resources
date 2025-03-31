@@ -37,9 +37,8 @@ apt-get install -y dialog > /dev/null
 
 alias int_dialog="dialog --backtitle \"BasdP's Docker CT environment\" --title 'Docker CT environment'"
 function progressbox() {
-    shopt -s expand_aliases
     # show a dialog box with the program name and version
-    eval int_dialog --progressbox "$1" 20 80 
+    eval int_dialog --progressbox "$1" 20 80
 }
 
 {
