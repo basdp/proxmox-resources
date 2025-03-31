@@ -57,7 +57,6 @@ sudo passwd -d root   # remove password
 sudo chage -d 0 root  # force password change on first login
 rm -f /etc/ssh/ssh_host_*_key
 rm -f /etc/ssh/ssh_host_*_key.pub
-rm /root/.bash_history
 
 # update issue
 cat <<EOF > /etc/issue
@@ -87,37 +86,13 @@ printf " $ docker images prune                 Remove unused images\n"
 printf " $ docker system prune                 Remove unused ct, img, net\n"
 printf "\n"
 printf " Some useful docker compose commands:\n"
-printf " $ docker compose up -d     cmd="$1"
-    dialog --programbox "Running command: $cmd" 20 80 < <(eval "$cmd")
-}
-
-# Example function to run a command with a progress bar and show its output in the progressbox
-run_with_progress() {
-    local cmd="$1"
-    
-    # Run the progress bar in the background
-    update_progress_bar &  # Update progress bar
-    progress_pid=$!
-    
-    # Show command output in the progressbox
-    run_command_show_output "$cmd"
-    
-    # Wait for the progress bar to finish
-    wait $progress_pid
-}
-
-start_progress_session() {
-    tmux new-session -d -s progress_session
-
-    # Split the tmux window vertically (top pane for progress bar, bottom for command output)
-    tmux split-window -v
-
-}
-
-set_progress_session_percent() {
-    local percent=$1
-    tmux send-keys -t progress_session:0.0 "echo $percent% completed" C-m
-}
+printf " $ docker compose up -d                Start stack\n"
+printf " $ docker compose down                 Stop stack\n"
+printf " $ docker compose logs                 Show logs\n"
+printf " $ docker compose ps                   Show services\n"
+printf " $ docker compose exec <service> bash  Enter a service\n"
+printf " $ docker compose pull                 Pull latest images\n"
+printf "\n"
 EOF
 chmod +x /etc/update-motd.d/00-docker-ct
 
