@@ -33,13 +33,26 @@ set -o errexit
 set -o errtrace
 
 # install dialog
-apt-get install -y dialog > /dev/null
+if ! command -v dialog &> /dev/null; then
+    echo "dialog could not be found, installing it..."
+    apt-get update > /dev/null
+    apt-get install -y dialog > /dev/null
+fi
 
 alias int_dialog="dialog --backtitle \"BasdP's Docker CT environment\" --title 'Docker CT environment'"
 function progressbox() {
     shopt -s expand_aliases
     eval int_dialog --progressbox "$1" 20 80 
 }
+
+{
+    while true
+    do date 
+    sleep 1 
+    sleep 1
+    done 
+    ls
+} | progressbox "hopi" 
 
 {
     apt-get update
