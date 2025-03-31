@@ -40,7 +40,7 @@ if ! command -v dialog &> /dev/null; then
 fi
 
 function int_dialog() {
-    echo dialog --backtitle "BasdP's Docker CT environment" --title 'Docker CT environment' "$@"
+    dialog --backtitle "BasdP's Docker CT environment" --title 'Docker CT environment' "$@"
 }
 
 function progressbox() {
