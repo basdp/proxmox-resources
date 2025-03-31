@@ -74,7 +74,6 @@ function progressbox() {
 } | progressbox "Installing Docker..."
 
 {
-    echo "🎈 Provisioning root account for first use..."
     passwd -d root   # remove password
     chage -d 0 root  # force password change on first login
     rm -f /etc/ssh/ssh_host_*_key
