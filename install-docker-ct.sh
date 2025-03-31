@@ -90,7 +90,7 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
     echo "export PS1='\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\$ '" >> /root/.profile
     echo "export TERM=xterm" >> /root/.profile
 
-    echo "reset" >> /root/.bash_logout
+    echo -e "reset\n" > /root/.bash_logout
 
 } | progressbox "Provisioning root account for first use..."
 
