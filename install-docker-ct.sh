@@ -82,10 +82,6 @@ dpkg-reconfigure tzdata
 sudo dpkg-reconfigure --priority=low unattended-upgrades
 
 {
-    passwd -d root   # remove password
-    chage -d 0 root  # force password change on first login
-    rm -f /etc/ssh/ssh_host_*_key
-    rm -f /etc/ssh/ssh_host_*_key.pub
     apt-get autoremove -y
     apt-get clean -y
     apt-get autoclean -y
@@ -95,7 +91,7 @@ sudo dpkg-reconfigure --priority=low unattended-upgrades
 
     echo -e "reset\n" > /root/.bash_logout
 
-} | progressbox "Provisioning root account for first use..."
+} | progressbox "Setting up account..."
 
 # update issue
 cat <<EOF > /etc/issue
@@ -182,9 +178,17 @@ printf "\n"
 EOF
 chmod +x /etc/update-motd.d/30-list-projects
 
+if int_dialog --defaultno --yesno "Do you want to provision the system for Proxmox CT template use?\n\nThis will:\n  - Reset the root password so it will prompt on first boot\n  - remove the ssh host keys" 10 50; then
+{
+    passwd -d root   # remove password
+    chage -d 0 root  # force password change on first login
+    rm -f /etc/ssh/ssh_host_*_key
+    rm -f /etc/ssh/ssh_host_*_key.pub
+} | progressbox "Provisioning root account for first use..."
+fi
 
 # show a dialog to inform the user the template is done and ask to shutdown
-if int_dialog --yesno "Installation finished! Do you want to shutdown the container now?" 10 50; then
+if int_dialog --defaultno --yesno "Installation finished! Do you want to shutdown the container now?\n\nIf you have provisioned the system for Proxmox CT template use, it is higly recommended you shutdown now and make a template in this state." 10 50; then
     echo "💤 Shutting down..."
     shutdown now
 else
