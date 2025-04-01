@@ -73,6 +73,9 @@ function progressbox() {
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 } | progressbox "Installing Docker..."
 
+# set timezone
+dpkg-reconfigure tzdata
+
 {
     apt-get install -y unattended-upgrades
 } | progressbox "Enabling unattended automatic updates..."
