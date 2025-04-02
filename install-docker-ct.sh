@@ -76,6 +76,12 @@ function progressbox() {
 # set timezone
 dpkg-reconfigure tzdata
 
+# set up lazydocker
+{
+    # install lazydocker
+    DIR=/usr/local/bin bash -c "$(wget -qLO - https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh)"
+} | progressbox "Installing lazydocker..."
+
 {
     apt-get install -y unattended-upgrades
 } | progressbox "Enabling unattended automatic updates..."
@@ -133,6 +139,9 @@ printf " $ docker compose logs                 Show logs\n"
 printf " $ docker compose ps                   Show services\n"
 printf " $ docker compose exec <service> bash  Enter a service\n"
 printf " $ docker compose pull                 Pull latest images\n"
+printf "\n"
+printf " Lazydocker is a terminal UI for docker, open it with:\n"
+printf " $ lazydocker\n"
 printf "\n"
 EOF
     chmod +x /etc/update-motd.d/10-helpful-commands
