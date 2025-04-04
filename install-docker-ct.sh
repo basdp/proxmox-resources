@@ -71,6 +71,15 @@ function progressbox() {
     tee /etc/apt/sources.list.d/docker.list > /dev/null
     apt-get update
     apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+    # delay the start of the docker service to allow the host CT to finish start and connect the bind mounts
+    
+    mkdir -p /etc/systemd/system/docker.service.d
+    cat <<EOF > /etc/systemd/system/docker.service.d/override.conf
+[Service]
+ExecStartPre=/bin/sleep 60
+EOF
+    systemctl daemon-reload
 } | progressbox "Installing Docker..."
 
 # set timezone
